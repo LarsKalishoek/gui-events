@@ -8,7 +8,7 @@ count = tkinter.IntVar()
 count = 0
 state = "neutral"
 
-def f_add():
+def f_add(event= "none"):
     global count, counter, state
     count += 1
     counter.configure(text= str(count))
@@ -26,7 +26,7 @@ add = tkinter.Button(
 add.pack()
 add.place(anchor= "center", x= 175, y= 50)
 
-def f_minus():
+def f_minus(event = "none"):
     global count, counter, state
     count -= 1
     counter.configure(text= str(count))
@@ -75,6 +75,12 @@ def doubleClick(event):
     else:
         pass
 
+
+window.bind("-", f_minus)
+window.bind("=", f_add)
+window.bind("Up", f_add)
+window.bind("Down", f_minus)
+window.bind("<space>", doubleClick)
 counter.bind("<Double-Button>", doubleClick)
 counter.bind("<Enter>", calc)
 counter.bind("<Leave>", leave)
