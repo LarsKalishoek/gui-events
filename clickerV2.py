@@ -6,12 +6,13 @@ window.config(bg = "grey")
 window.geometry("350x200")
 count = tkinter.IntVar()
 count = 0
-
+state = "neutral"
 
 def f_add():
-    global count, counter
+    global count, counter, state
     count += 1
     counter.configure(text= str(count))
+    state = "up"
 
 
 
@@ -26,9 +27,10 @@ add.pack()
 add.place(anchor= "center", x= 175, y= 50)
 
 def f_minus():
-    global count
+    global count, counter, state
     count -= 1
     counter.configure(text= str(count))
+    state = "down"
 
 minus = tkinter.Button(
     window,
@@ -62,6 +64,18 @@ def leave(event):
     window.config(bg= "grey")
 
 
+def doubleClick(event):
+    global count, counter, state
+    if state == "up":
+        count *= 3 
+        counter.configure(text= str(count))
+    elif state == "down":
+        count //= 3
+        counter.configure(text= str(count))
+    else:
+        pass
+
+counter.bind("<Double-Button>", doubleClick)
 counter.bind("<Enter>", calc)
 counter.bind("<Leave>", leave)
 window.mainloop()
